@@ -6,7 +6,7 @@ A new Flutter project for my portfolio.
 
 This project is Flutter Source code for my personal portfolio.
 
-Build output for this project is at [rohitsaw.github.io repository] (https://github.com/rohitsaw/rohitsaw.github.io) :
+Build output for this project is at this [repository](https://github.com/rohitsaw/rohitsaw.github.io) :
 
 
 For help getting started with Flutter, view our
