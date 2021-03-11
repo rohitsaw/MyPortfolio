@@ -88,7 +88,7 @@ class Contact extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Download Resume!",
+                    "Resume!",
                     style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Pacifico',

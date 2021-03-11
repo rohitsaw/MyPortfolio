@@ -64,7 +64,7 @@ class Skills extends StatelessWidget {
                   ),
                   MyChip(
                     chiptext: 'LeetCode',
-                    imagepath: 'asset/images/leetcode.png',
+                    imagepath: 'asset/images/leetcode.jpg',
                     actionurl: 'https://leetcode.com/rsaw409/',
                   ),
                   MyChip(

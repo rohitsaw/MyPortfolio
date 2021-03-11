@@ -28,6 +28,7 @@ class _MyChipState extends State<MyChip> with SingleTickerProviderStateMixin {
         onHover: (value) {
           if (value) {
             setState(() {
+              print("chip hover start");
               _onHover = true;
             });
           } else {

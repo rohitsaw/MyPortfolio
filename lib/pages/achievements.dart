@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:grouped_list/grouped_list.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class Achievements extends StatelessWidget {
   final _achievements = [
@@ -57,37 +58,210 @@ class Achievements extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, constraints) {
-        return GroupedListView(
-          groupBy: (element) => element['group'],
-          elements: _achievements,
-          useStickyGroupSeparators: true,
-          groupSeparatorBuilder: (val) => Container(
-            padding: EdgeInsets.all(10),
+      builder: (context, device) => Container(
+          child: (device.maxWidth > 900)
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: ListContainer(_achievements),
+                    ),
+                    VerticalDivider(
+                      thickness: 2,
+                      color: Colors.grey.shade500,
+                    ),
+                    Expanded(
+                      child: CardContainer(),
+                    )
+                  ],
+                )
+              : Column(
+                  children: [
+                    Expanded(
+                      child: ListContainer(_achievements),
+                    ),
+                    Divider(
+                      thickness: 2,
+                      color: Colors.grey.shade500,
+                    ),
+                    Expanded(
+                      child: CardContainer(),
+                    )
+                  ],
+                )),
+    );
+  }
+}
+
+class ListContainer extends StatelessWidget {
+  final _achievements;
+  ListContainer(this._achievements);
+
+  @override
+  Widget build(BuildContext context) {
+    return GroupedListView(
+      groupBy: (element) => element['group'],
+      elements: _achievements,
+      useStickyGroupSeparators: true,
+      groupSeparatorBuilder: (val) => Container(
+        padding: EdgeInsets.all(10),
+        child: Text(
+          val,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      itemBuilder: (context, dynamic element) => TextButton.icon(
+        onPressed: () {
+          launch(element['link']);
+        },
+        label: Center(
+          child: FittedBox(
             child: Text(
-              val,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-              ),
+              element['name'],
+              overflow: TextOverflow.fade,
             ),
           ),
-          itemBuilder: (context, dynamic element) => TextButton.icon(
-            onPressed: () {
-              launch(element['link']);
-            },
-            label: FittedBox(
-              child: Center(
-                child: Text(
-                  element['name'],
+        ),
+        icon: Icon(Icons.arrow_right_alt),
+      ),
+    );
+  }
+}
+
+class CardContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Publised App',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            fontFamily: 'Raleway',
+            fontSize: 40,
+          ),
+        ),
+        Expanded(
+          child: LayoutBuilder(
+            builder: (context, device) => GridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: device.maxWidth * 0.05,
+              crossAxisSpacing: device.maxWidth * 0.05,
+              children: [
+                Center(
+                  child: AppCard(device, "asset/images/codelist.png",
+                      "https://play.google.com/store/apps/details?id=developer.rohitsaw.codelist"),
+                ),
+                Center(
+                  child: AppCard(device, "asset/images/expensetracker.png",
+                      "https://play.google.com/store/apps/details?id=com.rohitsaw.personal_expenses"),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class AppCard extends StatefulWidget {
+  final device;
+  final imagePath;
+  final appLink;
+
+  AppCard(this.device, this.imagePath, this.appLink);
+
+  @override
+  _AppCardState createState() => _AppCardState();
+}
+
+class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
+  bool _hover;
+
+  double _hoverHight, _hoverWidth;
+  double _height, _width;
+
+  @override
+  void initState() {
+    super.initState();
+    _hover = false;
+
+    _hoverHight = widget.device.maxWidth * 0.50;
+    _hoverWidth = widget.device.maxWidth * 0.50;
+
+    _height = widget.device.maxWidth * 0.30;
+    _width = widget.device.maxWidth * 0.30;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        if (!_hover) {
+          print("image path ${widget.imagePath}");
+          setState(() {
+            //print("appcard hover start");
+            _hover = true;
+          });
+        } else {
+          setState(() {
+            _hover = false;
+          });
+        }
+      },
+      onHover: (val) {
+        if (val) {
+          setState(() {
+            //print("image path ${widget.imagePath}");
+            _hover = true;
+          });
+        } else {
+          setState(() {
+            _hover = false;
+          });
+        }
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 500),
+        height: _hover ? _hoverHight : _height,
+        width: _hover ? _hoverWidth : _width,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: widget.imagePath,
+                  alignment: Alignment.topCenter,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            icon: Icon(Icons.arrow_right_alt),
-          ),
-        );
-      },
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                      onPressed: () {
+                        launch(widget.appLink);
+                      },
+                      child: Text("See in Store")),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
