@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../widgets/MyChip.dart';
 
@@ -150,7 +150,7 @@ class Skills extends StatelessWidget {
                           : constraints.maxWidth * 0.9,
                       child: ListTile(
                         onTap: () {
-                          launch(
+                          launchUrlString(
                               "https://www.codechef.com/certificates/public/24f5562");
                         },
                         leading: CircleAvatar(
@@ -172,7 +172,7 @@ class Skills extends StatelessWidget {
                           : constraints.maxWidth * 0.9,
                       child: ListTile(
                         onTap: () {
-                          launch(
+                          launchUrlString(
                               'https://graduation.udacity.com/confirm/TTALJ7F');
                         },
                         leading: CircleAvatar(
@@ -194,8 +194,8 @@ class Skills extends StatelessWidget {
                           : constraints.maxWidth * 0.9,
                       child: ListTile(
                         onTap: () {
-                          launch(
-                            'https://www.coursera.org/account/accomplishments/specialization/DF8UCJXQN4DN',
+                          launchUrlString(
+                            "https://www.coursera.org/account/accomplishments/specialization/DF8UCJXQN4DN",
                           );
                         },
                         leading: CircleAvatar(

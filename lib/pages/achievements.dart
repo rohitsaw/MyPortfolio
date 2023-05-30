@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:grouped_list/grouped_list.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Achievements extends StatelessWidget {
   final _achievements = [
@@ -99,13 +99,13 @@ class ListContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupedListView(
-      groupBy: (element) => element['group'],
+      groupBy: (element) => (element as Map)['group'],
       elements: _achievements,
       useStickyGroupSeparators: true,
       groupSeparatorBuilder: (val) => Container(
         padding: EdgeInsets.all(10),
         child: Text(
-          val,
+          val.toString(),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 30,
@@ -115,7 +115,7 @@ class ListContainer extends StatelessWidget {
       ),
       itemBuilder: (context, dynamic element) => TextButton.icon(
         onPressed: () {
-          launch(element['link']);
+          launchUrlString(element['link']);
         },
         label: Center(
           child: FittedBox(
@@ -180,10 +180,10 @@ class AppCard extends StatefulWidget {
 }
 
 class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
-  bool _hover;
+  late bool _hover;
 
-  double _hoverHight, _hoverWidth;
-  double _height, _width;
+  late double _hoverHight, _hoverWidth;
+  late double _height, _width;
 
   @override
   void initState() {
@@ -253,7 +253,7 @@ class _AppCardState extends State<AppCard> with SingleTickerProviderStateMixin {
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
                       onPressed: () {
-                        launch(widget.appLink);
+                        launchUrlString(widget.appLink);
                       },
                       child: Text("See in Store")),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../widgets/MyChip.dart';
 import '../widgets/MyIcon.dart';
@@ -59,7 +59,7 @@ class Contact extends StatelessWidget {
                 title: Center(
                   child: InkWell(
                     splashColor: Colors.grey,
-                    onTap: () => launch(
+                    onTap: () => launchUrlString(
                       'mailto: developer.rohitsaw@gmail.com',
                     ),
                     child: Tooltip(
@@ -100,7 +100,7 @@ class Contact extends StatelessWidget {
                     color: Colors.blue,
                     icon: FontAwesomeIcons.arrowCircleDown,
                     actionurl:
-                        "https://docs.google.com/document/d/1i3vhPROiGa_4JMGWURNXQmPi2DuaD714Vm31ulIaHno/edit#heading=h.b2jr4v5hyfbl",
+                        "https://drive.google.com/file/d/1U26LzIIGz9c3Ia25Ov_BkcPep4xKVrcc/view?usp=share_link",
                   ),
                 ],
               ),

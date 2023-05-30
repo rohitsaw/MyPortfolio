@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MyChip extends StatefulWidget {
   final actionurl, imagepath, chiptext;
@@ -11,7 +11,7 @@ class MyChip extends StatefulWidget {
 }
 
 class _MyChipState extends State<MyChip> with SingleTickerProviderStateMixin {
-  bool _onHover;
+  late bool _onHover;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _MyChipState extends State<MyChip> with SingleTickerProviderStateMixin {
             });
           }
         },
-        onTap: () => launch(widget.actionurl),
+        onTap: () => launchUrlString(widget.actionurl),
         child: Chip(
           elevation: _onHover ? 10 : 0,
           backgroundColor: _onHover ? Colors.green : Colors.grey[350],

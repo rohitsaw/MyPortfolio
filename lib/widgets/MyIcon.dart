@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MyIcon extends StatefulWidget {
   final icon, actionurl;
   final Color color;
-  MyIcon({@required this.icon, @required this.actionurl, this.color});
+  MyIcon(
+      {@required this.icon,
+      @required this.actionurl,
+      this.color = Colors.white});
 
   @override
   _MyIconState createState() => _MyIconState();
 }
 
 class _MyIconState extends State<MyIcon> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
   bool _isHover = false;
 
   @override
@@ -54,11 +57,11 @@ class _MyIconState extends State<MyIcon> with SingleTickerProviderStateMixin {
           }
         },
         onTap: () {
-          launch(widget.actionurl);
+          launchUrlString(widget.actionurl);
         },
         child: FaIcon(
           widget.icon,
-          color: _isHover ? Colors.orange : (widget.color ?? Colors.white),
+          color: _isHover ? Colors.orange : (widget.color),
           size: 30,
         ),
       ),
