@@ -152,11 +152,13 @@ class CardContainer extends StatelessWidget {
               crossAxisSpacing: device.maxWidth * 0.05,
               children: [
                 Center(
-                  child: AppCard(device, "asset/images/codelist.png",
+                  child: AppCard(device, "assets/asset/images/codelist.png",
                       "https://play.google.com/store/apps/details?id=developer.rohitsaw.codelist"),
                 ),
                 Center(
-                  child: AppCard(device, "asset/images/expensetracker.png",
+                  child: AppCard(
+                      device,
+                      "assets/asset/images/expensetracker.png",
                       "https://play.google.com/store/apps/details?id=com.rohitsaw.personal_expenses"),
                 ),
               ],
